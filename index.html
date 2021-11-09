@@ -8,22 +8,37 @@
     <body>
 
         <div class="nav-bar"></div>
+        <!--Vue Instance App starts here-->
         <div id="app">
             <div class="cart">
                 <p>🛒({{ cart }})</p>
             </div>
-            
             <div class="product">
-
+                <!--putting image and color in one container to center them-->
+                <div class="image_and_color">
+                    <!--image style width is responsive and relative to viewport width-->
                 <div class="product-image">
                     <img :src="image" :alt="altText" /> 
+                    </div>
+                    <!-- use color-containter div to center, space-between color-boxes and stick them to image for UI -->
+                 <div class="color-container">
+                        <div class="color-box"
+                            v-for="(variant, index) in variants" 
+                            :key="variant.variantId"
+                            :style="{ backgroundColor: variant.variantColor }"
+                            @mouseover="updateProduct(index)"
+                            >
+                        </div>
+                 </div>
                 </div>
-                
                 <div class="product-info">
-                    <h1>{{ product }}</h1>
-                    <p v-if="inventory > 10">In Stock</p>
-                    <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
-                    <p v-else>Out of stock</p>
+                    <h1>{{ title }}</h1>
+                    
+                    
+                    <p v-if="inventory <= 10 && inStock ">Almost sold out!</p>
+                    <p v-else-if="inStock">In Stock</p>
+                    <p v-else
+                        :class="{ outOfStock: !inStock } " >Out of stock</p>
                     <p v-show="showDetails"> {{ product + ' are ' + description }} </p>
                     
                     <ul>
@@ -32,22 +47,26 @@
                     <ul v-show="showSize">
                         <li v-for="size in sizes">{{ size }}</li>
                     </ul>
-                    <div v-for="variant in variants" :key="variant.variantId">
-                        <p @mouseover="updateProduct(variant.variantImage)">
-                             {{ variant.variantColor }} 
-                        </p>
-                    </div>
+                        
                     <div class="buttons">
-                        <button @click="addToCart">Add to 🛒</button>
+                        <button @click="addToCart" 
+                                :disabled="!inStock"
+                                :class="{ disabledButton: !inStock } ">Add to 🛒</button>
                         <button @click="removeFromCart" v-if="cart > 0">Remove from 🛒</button>
                         <button v-on:click="emptyCart" v-if="cart > 0">Empty 🛒</button>
+                        
                     </div>
+
+                    
+
                     <span v-show="onSale">On Sale! </span>
                     <!-- v:show  - For conditional elements that are usually toggled on and off, you can use v-show instead of v-if / v-else. It adds or removes the CSS property display: none to the element
                     You can do something like <p v-show="inStock">In Stock</p>-->
                 </div>
+            </div>   
+            <div style="margin:auto;">
                 <h4 style="text-align:center"><a :href="link"> Daniyar's Github </a></h4>
-            </div>     
+            </div>  
         </div>
         
 

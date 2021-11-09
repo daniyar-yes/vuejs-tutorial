@@ -9,6 +9,26 @@ body {
     height: 60px;
     margin-bottom: 15px;
   }
+  
+  .color-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100px;
+  }
+
+  .image_and_color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 110px;
+
+  }
+
+  .outOfStock {
+    text-decoration: line-through;
+  }
 
   .product {
     display: flex;
@@ -18,18 +38,21 @@ body {
 
   img {
     border: 1px solid #d8d8d8;
-    width: 70%;
-    margin: 40px;
+    width: 30vw;
+    
+    
     box-shadow: 0px .5px 1px #d8d8d8;
   }
   
   .product-image {
     width: 80%;
+    display: flex;
+    justify-content: center;
   }
   
   .product-image,
   .product-info {
-    margin-top: 10px;
+    
     width: 50%;
   }
   
@@ -37,6 +60,8 @@ body {
     width: 40px;
     height: 40px;
     margin-top: 5px;
+    display: flex;
+    flex-direction: row;
   }
   
   .cart {

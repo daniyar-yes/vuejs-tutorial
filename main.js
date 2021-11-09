@@ -2,8 +2,8 @@ var app = new Vue({
     el: '#app',
     data: {
         product: 'Socks',
-        image: "./assets/vmSocks-green.jpg",
-        inStock: true,
+        brand: 'Vue Mastery',
+        selectedVariant: 0,
         inventory: 100,
         altText: "A pair of socks",
         description: 'made of natural wool',
@@ -14,12 +14,14 @@ var app = new Vue({
             {
                 variantId: 2234,
                 variantColor: "green",
-                variantImage: "./assets/vmSocks-green.jpg"
+                variantImage: "./assets/vmSocks-green.jpg",
+                variantQuantity: 9
             },
             {
                 variantId: 2235,
                 variantColor: "blue",
-                variantImage: "./assets/vmSocks-blue.jpg"
+                variantImage: "./assets/vmSocks-blue.jpg",
+                variantQuantity: 0
             }
         ],
         cart: 0,
@@ -37,8 +39,23 @@ var app = new Vue({
         emptyCart() {
             this.cart = 0
         },
-        updateProduct(variantImage) {
-            this.image = variantImage
+        updateProduct(index) {
+            this.selectedVariant = index
+            console.log(index)
+        }
+    },
+    computed: {
+        title() {
+            return this.brand + ' ' + this.product
+        },
+        image() {
+            return this.variants[this.selectedVariant].variantImage
+        },
+        inStock() {
+            return this.variants[this.selectedVariant].variantQuantity
+        },
+        isOnSale() {
+            return this.brand + ' ' + this.product + ' is on Sale!'
         }
     }
 })
